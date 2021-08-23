@@ -1,0 +1,10 @@
+{
+    "watch": [
+        "server/**/*.ts"
+    ],
+    "ext":"ts, json",
+    "ignore": [
+        "**/*spec.ts"
+    ],
+    "exec": "ts-node --project nest.json ./src/main.ts"
+}

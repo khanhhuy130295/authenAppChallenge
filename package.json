@@ -5,15 +5,16 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {"node": ">=12.0.0 <14.0.0"},
   "scripts": {
-    "clean:prod": "rimraf dist", 
+    "clean:prod": "rimraf dist",
     "prebuild": "yarn --silent clean:prod",
     "build:fontend": "webpack --config webpack/webpack.prod.js --progress",
     "build:backend": "tsc -p nest.prod.json",
     "build_output": "./deloy/build_output.sh",
     "build": "run-p --silent build:fontend build:backend",
-    "start": "NODE_ENV=staging node server_build/app.main.js",
-    "start_prod": "node --max-old-space-size=700 server_build/app.main.js",
+    "start": "NODE_ENV=staging node dist/server_build/main.js",
+    "start_prod": "node --max-old-space-size=700 dist/server_build/main.js",
     "dev": "NODE_ENV=development nodemon",
     "dev:server": "NODE_ENV=development nodemon --bundle=false",
     "test": "NODE_ENV=development  jest --detectOpenHandles --forceExit --logHeapUsage --runInBand",
@@ -65,14 +66,10 @@
         "tsconfig": "nest.json"
       }
     },
-    "rootDir": "server",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "testTimeout": 30000,

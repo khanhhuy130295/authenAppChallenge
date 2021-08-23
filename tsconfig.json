@@ -1,12 +1,13 @@
 {
   "include": [
     "server/**/*",
-    "client/**/*"
+    "client/**/*",
+    "test/*"
   ],
   "exclude": [
     "node_modules",
-    "**/*spec.ts",
-    "test",
+    // "**/*spec.ts",
+    // "test",
     "dist"
   ],
   "compilerOptions": {

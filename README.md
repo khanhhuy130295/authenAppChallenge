@@ -1,2 +1,2 @@
 # authenAppChallenge
-authentication follow openID, passport ()
+authentication follow openID, passport 

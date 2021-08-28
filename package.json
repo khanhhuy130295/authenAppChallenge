@@ -5,15 +5,18 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": ">=12.0.0 <14.0.0"
+  },
   "scripts": {
-    "clean:prod": "rimraf dist", 
+    "clean:prod": "rimraf dist",
     "prebuild": "yarn --silent clean:prod",
     "build:fontend": "webpack --config webpack/webpack.prod.js --progress",
     "build:backend": "tsc -p nest.prod.json",
     "build_output": "./deloy/build_output.sh",
     "build": "run-p --silent build:fontend build:backend",
-    "start": "NODE_ENV=staging node server_build/app.main.js",
-    "start_prod": "node --max-old-space-size=700 server_build/app.main.js",
+    "start": "NODE_ENV=staging node dist/server_build/main.js",
+    "start_prod": "node --max-old-space-size=700 dist/server_build/main.js",
     "dev": "NODE_ENV=development nodemon",
     "dev:server": "NODE_ENV=development nodemon --bundle=false",
     "test": "NODE_ENV=development  jest --detectOpenHandles --forceExit --logHeapUsage --runInBand",
@@ -24,10 +27,14 @@
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
+    "@nestjs/config": "^1.0.1",
     "@nestjs/core": "^8.0.0",
     "@nestjs/cqrs": "^8.0.0",
     "@nestjs/mapped-types": "^1.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "express-session": "^1.17.2",
+    "mongoose": "^6.0.2",
+    "redis": "^3.1.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
@@ -37,8 +44,10 @@
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
     "@types/express": "^4.17.13",
+    "@types/express-session": "^1.17.4",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.0.0",
+    "@types/redis": "^2.8.31",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
@@ -65,14 +74,10 @@
         "tsconfig": "nest.json"
       }
     },
-    "rootDir": "server",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "testTimeout": 30000,

@@ -1,8 +1,9 @@
 {
   "include": [
-    "server/**/*",
-    "client/**/*",
-    "test/*"
+    // "server/**/*",
+    "./server/**/*",
+    "./client/**/*",
+    "./test/*"
   ],
   "exclude": [
     "node_modules",

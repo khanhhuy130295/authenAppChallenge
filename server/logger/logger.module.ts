@@ -12,9 +12,9 @@ import {
   LOGGER
 } from './logger.constant'
 import { LoggerLib } from './logger.lib'
-@Module({
 
-})
+@Global()
+@Module({})
 export class LoggerModule extends LoggerLib implements LoggerService {
   private static instance: LoggerModule
 
@@ -42,21 +42,21 @@ export class LoggerModule extends LoggerLib implements LoggerService {
     }
   }
 
-  info<T>(message: string, context?: string, data?: T): void {
+  public info<T>(message: string, context?: string, data?: T): void {
     const loggerConfig: LoggerConfigurationExtender = {
       ...LoggerModule.config
     }
     if (arguments.length > 2) loggerConfig.showData = true
     LoggerModule.info(message, context, data, loggerConfig)
   }
-  warn<T>(message: string, context?: string, data?: T): void {
+  public warn<T>(message: string, context?: string, data?: T): void {
     const loggerConfig: LoggerConfigurationExtender = {
       ...LoggerModule.config
     }
     if (arguments.length > 2) loggerConfig.showData = true
     LoggerModule.warn(message, context, data, loggerConfig)
   }
-  error<T>(message: string, error: Error, context?: string, data?: T): void {
+  public error<T>(message: string, error: Error, context?: string, data?: T): void {
     const loggerConfig: LoggerConfigurationExtender = {
       ...LoggerModule.config
     }

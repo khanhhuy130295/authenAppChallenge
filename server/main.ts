@@ -1,27 +1,34 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { AppModuleFactory } from './app';
+import { AppModuleFactory, AppConfig } from './app';
 import {LoggerModule} from './logger'
-// async function bootstrap() {
-//   const app = await NestFactory.create(AppModule);
-//   await app.listen(3000);
-// }
-// bootstrap();
 
 
 async function runApp(): Promise<NestExpressApplication | void> {
-  try{
-    LoggerModule.info('development', 'NODE_ENV', null, undefined)
+  try {
+    const { env, file, appConfig} = AppConfig.load()
+    LoggerModule.info(env, 'NODE_ENV', null, appConfig.logger)
+    LoggerModule.info(file, 'Configuration', null, appConfig.logger)
+    const isDev: boolean = env === 'development'
+
+    const {
+      port,
+      host = ''
+    } = appConfig.app
+    
     // config
     const app: NestExpressApplication = await NestFactory.create<NestExpressApplication>(
-      new AppModuleFactory(),
+      new AppModuleFactory(appConfig),
       {
         // logger: false,
         bodyParser: false
       }
     )
-  }catch(err){
-    console.log(err)
+    await app.listen(3000)
+    return app
+  } catch (err) {
+    LoggerModule.error(err.message, err, 'runApp')
+    // console.log(err)
   }
 }
 

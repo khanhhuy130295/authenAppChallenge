@@ -1,13 +1,13 @@
 {
     "include": [
-      "server/**/*"
+      "./server/**/*"
     ],
     "exclude": [
       "node_modules",
       "webpack",
       "*build",
       "**/*spec.ts",
-      "client/**/*"
+      "./client/**/*"
     ],
     "compilerOptions": {
       "baseUrl": ".",

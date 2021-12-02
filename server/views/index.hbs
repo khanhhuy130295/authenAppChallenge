@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+{{!-- <script src="https://www.google.com/recaptcha/enterprise.js?onload=onloadCallback&render=explicit" async defer></script> --}}
+{{!-- <script src='https://www.google.com/recaptcha/enterprise.js?render=6LfiXgQdAAAAALoJQaciksiAmZJG_R93iwtTEEnT'></script> --}}
+     <script type="text/javascript">
+      var onloadCallback = function() {
+        grecaptcha.enterprise.render('html_element', {
+          'sitekey' : '6LfiXgQdAAAAALoJQaciksiAmZJG_R93iwtTEEnT',
+        });
+      };
+    </script> 
+    <title>App</title>
+  </head>
+  <body>
+    {{ message }}
+    <form  onclick="onSubmit()" method="GET">
+      <div id="html_element"></div>
+      {{!-- <div class="g-recaptcha" data-sitekey="6LfiXgQdAAAAALoJQaciksiAmZJG_R93iwtTEEnT"></div> --}}
+      <br>
+      <input type="submit" value="submit">
+    </form>
+    <script src="https://www.google.com/recaptcha/enterprise.js?onload=onloadCallback&render=explicit" async defer></script>
+    <script>
+      function onSubmit() {
+        grecaptcha.enterprise.ready(function () {
+          grecaptcha.enterprise.execute('6LfiXgQdAAAAALoJQaciksiAmZJG_R93iwtTEEnT', {action: 'LOGIN'}).then(function (token) {
+           console.log(token)
+        });
+      }); }
+    </script>
+  </body>
+</html>
+
+
+
+
+

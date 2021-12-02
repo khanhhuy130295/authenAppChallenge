@@ -2,7 +2,7 @@
     "watch": [
         "server/**/*.ts"
     ],
-    "ext":"ts, json",
+    "ext":"ts, json, hbs",
     "ignore": [
         "**/*spec.ts"
     ],
